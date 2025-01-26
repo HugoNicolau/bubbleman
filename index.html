@@ -415,16 +415,16 @@
 
         function handleContinuousMovement() {
             const speed = 5 / zoom;
-            if (keysPressed['ArrowUp'] || lastKeyPressed === 'ArrowUp') {
+            if (keysPressed['ArrowUp'] || keysPressed['W'] || lastKeyPressed === 'ArrowUp') {
                 playerY = Math.max(PLAYER_SIZE, playerY - speed);
             }
-            if (keysPressed['ArrowDown'] || lastKeyPressed === 'ArrowDown') {
+            if (keysPressed['ArrowDown'] || keysPressed['S'] || lastKeyPressed === 'ArrowDown') {
                 playerY = Math.min(WORLD_SIZE - PLAYER_SIZE, playerY + speed);
             }
-            if (keysPressed['ArrowLeft'] || lastKeyPressed === 'ArrowLeft') {
+            if (keysPressed['ArrowLeft'] || keysPressed['A'] || lastKeyPressed === 'ArrowLeft') {
                 playerX = Math.max(PLAYER_SIZE, playerX - speed);
             }
-            if (keysPressed['ArrowRight'] || lastKeyPressed === 'ArrowRight') {
+            if (keysPressed['ArrowRight'] || keysPressed['D'] || lastKeyPressed === 'ArrowRight') {
                 playerX = Math.min(WORLD_SIZE - PLAYER_SIZE, playerX + speed);
             }
         }
