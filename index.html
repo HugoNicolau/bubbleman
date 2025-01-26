@@ -25,19 +25,45 @@
             padding: 10px;
             border-radius: 5px;
         }
+
+        #person {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <canvas id="gameCanvas"></canvas>
     <div id="gameInfo">
-        <p>Use arrow keys to move</p>
-        <p>Scroll to zoom in/out</p>
+        <p id="information1">Use arrow keys to move</p>
+        <p id="information2">Scroll to zoom in/out</p>
         <p id="zoomLevel">Zoom: 5.00x</p>
         <p id="score">Score: 0 b²</p>
         <p id="game-duration">Game Duration: 0s</p>
-        <input type="text" id="person" placeholder="Type your name here">
-        
+        <input type="text" id="person" placeholder="Type your name here" autocomplete="off">
+        <button onclick="handleName()">OK</button>
     </div>
     <script>
 
@@ -47,6 +73,9 @@
         const scoreElement = document.getElementById('score');
         const gameDurationElement = document.getElementById('game-duration');
         const personElement = document.getElementById('person');
+        const okButton = document.querySelector('button');
+        const information1 = document.getElementById('information1');
+        const information2 = document.getElementById('information2');
 
         const WORLD_SIZE = 10000;
         const HEX_SIZE = 50;
@@ -59,8 +88,7 @@
         let startTime = Date.now();
         let person = 'Player';
 
-
-
+        okButton.addEventListener('click', handleName);
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -239,7 +267,14 @@
         }
 
         function handleName() {
-            person = personElement.value;
+            person = personElement.value || 'Player';
+
+            if (person !== 'Player') {
+                personElement.classList.add('hidden');
+                okButton.classList.add('hidden');
+                information1.classList.add('hidden');
+                information2.classList.add('hidden');
+            }
         }
 
         function handleGameDuration() {
