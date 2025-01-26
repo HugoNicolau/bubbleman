@@ -47,9 +47,11 @@
         button:hover {
             background-color: #2980b9;
         }
+
         .hidden {
             display: none;
         }
+
         #startScreen {
             position: absolute;
             top: 0;
@@ -67,17 +69,20 @@
         #startScreen.hidden {
             display: none !important;
         }
+
         #startScreen h1 {
             font-size: 5em;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
+
         #startScreen p {
             font-size: 1.2em;
             margin-bottom: 20px;
             text-align: center;
             max-width: 600px;
         }
+
         #startScreen input {
             font-size: 1.2em;
             padding: 10px;
@@ -87,6 +92,7 @@
             border: none;
             border-radius: 5px;
         }
+
         #startScreen button {
             font-size: 1.2em;
             padding: 10px 20px;
@@ -97,10 +103,10 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         #startScreen button:hover {
             background-color: #27ae60;
         }
-
     </style>
 </head>
 
@@ -174,7 +180,7 @@
             const gridEndX = gridStartX + visibleWidth + HEX_SIZE;
             const gridStartY = Math.floor(topLeftY / HEX_SIZE) * HEX_SIZE;
             const gridEndY = gridStartY + visibleHeight + HEX_SIZE;
-            
+
             const startX = Math.floor(topLeftX / (HEX_SIZE * 1.5)) * (HEX_SIZE * 1.5);
             const startY = Math.floor(topLeftY / hexHeight) * hexHeight;
             const endX = startX + visibleWidth + HEX_SIZE;
@@ -415,16 +421,16 @@
 
         function handleContinuousMovement() {
             const speed = 5 / zoom;
-            if (keysPressed['ArrowUp'] || keysPressed['W'] || lastKeyPressed === 'ArrowUp') {
+            if (keysPressed['ArrowUp'] || keysPressed['W'] || keysPressed['w'] || lastKeyPressed === 'ArrowUp') {
                 playerY = Math.max(PLAYER_SIZE, playerY - speed);
             }
-            if (keysPressed['ArrowDown'] || keysPressed['S'] || lastKeyPressed === 'ArrowDown') {
+            if (keysPressed['ArrowDown'] || keysPressed['S'] || keysPressed['s'] || lastKeyPressed === 'ArrowDown') {
                 playerY = Math.min(WORLD_SIZE - PLAYER_SIZE, playerY + speed);
             }
-            if (keysPressed['ArrowLeft'] || keysPressed['A'] || lastKeyPressed === 'ArrowLeft') {
+            if (keysPressed['ArrowLeft'] || keysPressed['A'] || keysPressed['a'] || lastKeyPressed === 'ArrowLeft') {
                 playerX = Math.max(PLAYER_SIZE, playerX - speed);
             }
-            if (keysPressed['ArrowRight'] || keysPressed['D'] || lastKeyPressed === 'ArrowRight') {
+            if (keysPressed['ArrowRight'] || keysPressed['D'] || keysPressed['d'] || lastKeyPressed === 'ArrowRight') {
                 playerX = Math.min(WORLD_SIZE - PLAYER_SIZE, playerX + speed);
             }
         }
