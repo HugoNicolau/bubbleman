@@ -89,7 +89,12 @@
         let person = 'Player';
 
         okButton.addEventListener('click', handleName);
-
+        personElement.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                handleName();
+            }
+        });
+        
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
