@@ -93,6 +93,7 @@
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            adjustZoom();
         }
 
         function drawHexagon(x, y, size) {
@@ -113,10 +114,15 @@
 
         function drawHexGrid(topLeftX, topLeftY, visibleWidth, visibleHeight) {
             const hexHeight = HEX_SIZE * Math.sqrt(3);
+            const gridStartX = Math.floor(topLeftX / HEX_SIZE) * HEX_SIZE;
+            const gridEndX = gridStartX + visibleWidth + HEX_SIZE;
+            const gridStartY = Math.floor(topLeftY / HEX_SIZE) * HEX_SIZE;
+            const gridEndY = gridStartY + visibleHeight + HEX_SIZE;
+            
             const startX = Math.floor(topLeftX / (HEX_SIZE * 1.5)) * (HEX_SIZE * 1.5);
             const startY = Math.floor(topLeftY / hexHeight) * hexHeight;
-            const endX = topLeftX + visibleWidth + HEX_SIZE;
-            const endY = topLeftY + visibleHeight + hexHeight;
+            const endX = startX + visibleWidth + HEX_SIZE;
+            const endY = startY + visibleHeight + hexHeight;
 
             ctx.strokeStyle = 'rgba(200, 200, 200, 0.5)';;
             ctx.lineWidth = 1 / zoom;
@@ -256,14 +262,31 @@
             }
 
         }
-        function handleWheel(e) {
-            zoom = Math.min(Math.max(0.1, zoom - e.deltaY * 0.001), 10);
+        // function handleWheel(e) {
+        //     zoom = Math.min(Math.max(0.1, zoom - e.deltaY * 0.001), 10);
+        //     zoomLevelElement.textContent = `Zoom: ${zoom.toFixed(2)}x`;
+        // }
+
+        function adjustZoom() {
+            const minBubbleScreenPercentage = 0.033;
+            const maxBubbleScreenPercentage = 0.20;
+
+            const bubbleDiameter = 2 * PLAYER_SIZE;
+            const minDimension = Math.min(canvas.width, canvas.height);
+
+            let ratio = bubbleDiameter / minDimension;
+
+            ratio = Math.min(maxBubbleScreenPercentage, Math.max(minBubbleScreenPercentage, ratio));
+
+            zoom = ratio * (minDimension / bubbleDiameter);
+
             zoomLevelElement.textContent = `Zoom: ${zoom.toFixed(2)}x`;
         }
 
         function handleScore() {
             score = Math.PI * PLAYER_SIZE * PLAYER_SIZE;
             scoreElement.textContent = `Score: ${score.toFixed(0)}`;
+            adjustZoom();
         }
 
         function handleName() {
@@ -356,7 +379,7 @@
         }
 
         window.addEventListener('resize', resizeCanvas);
-        canvas.addEventListener('wheel', handleWheel);
+        // canvas.addEventListener('wheel', handleWheel);
 
         resizeCanvas();
         gameLoop();
