@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bubble Game</title>
+    <title>BubbleMan.IO</title>
     <style>
         body {
             margin: 0;
@@ -47,22 +47,74 @@
         button:hover {
             background-color: #2980b9;
         }
-
         .hidden {
             display: none;
         }
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #3498db;
+            color: white;
+        }
+
+        #startScreen.hidden {
+            display: none !important;
+        }
+        #startScreen h1 {
+            font-size: 5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        #startScreen p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 600px;
+        }
+        #startScreen input {
+            font-size: 1.2em;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+        #startScreen button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #startScreen button:hover {
+            background-color: #27ae60;
+        }
+
     </style>
 </head>
 
 <body>
     <canvas id="gameCanvas"></canvas>
     <div id="gameInfo">
-        <p id="information1">Use arrow keys to move</p>
-        <p id="information2">Scroll to zoom in/out</p>
         <p id="zoomLevel">Zoom: 5.00x</p>
-        <p id="score">Score: 0 b²</p>
+        <p id="score">Score: 0</p>
         <p id="game-duration">Game Duration: 0s</p>
-        <input type="text" id="person" placeholder="Type your name here" autocomplete="off">
+    </div>
+    <div id="startScreen">
+        <h1>BubbleMan.IO</h1>
+        <p>Use arrow keys to move your bubble. Consume smaller bubbles to grow, but avoid larger ones!</p>
+        <input type="text" id="person" placeholder="Type your nickname here" autocomplete="off">
         <button onclick="handleName()">OK</button>
     </div>
     <script>
@@ -74,8 +126,7 @@
         const gameDurationElement = document.getElementById('game-duration');
         const personElement = document.getElementById('person');
         const okButton = document.querySelector('button');
-        const information1 = document.getElementById('information1');
-        const information2 = document.getElementById('information2');
+        const startScreen = document.getElementById('startScreen');
 
         const WORLD_SIZE = 10000;
         const HEX_SIZE = 50;
@@ -94,7 +145,7 @@
                 handleName();
             }
         });
-        
+
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -267,10 +318,6 @@
             }
 
         }
-        // function handleWheel(e) {
-        //     zoom = Math.min(Math.max(0.1, zoom - e.deltaY * 0.001), 10);
-        //     zoomLevelElement.textContent = `Zoom: ${zoom.toFixed(2)}x`;
-        // }
 
         function adjustZoom() {
             const minBubbleScreenPercentage = 0.033;
@@ -300,8 +347,7 @@
             if (person !== 'Player') {
                 personElement.classList.add('hidden');
                 okButton.classList.add('hidden');
-                information1.classList.add('hidden');
-                information2.classList.add('hidden');
+                startScreen.classList.add('hidden');
             }
         }
 
