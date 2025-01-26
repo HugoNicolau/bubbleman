@@ -33,26 +33,31 @@
     <div id="gameInfo">
         <p>Use arrow keys to move</p>
         <p>Scroll to zoom in/out</p>
-        <p id="zoomLevel">Zoom: 1.00x</p>
-        <p id="score">Score: 0</p>
+        <p id="zoomLevel">Zoom: 5.00x</p>
+        <p id="score">Score: 0 b²</p>
         <p id="game-duration">Game Duration: 0s</p>
+        <input type="text" id="person" placeholder="Type your name here">
+        
     </div>
     <script>
+
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const zoomLevelElement = document.getElementById('zoomLevel');
         const scoreElement = document.getElementById('score');
         const gameDurationElement = document.getElementById('game-duration');
+        const personElement = document.getElementById('person');
 
         const WORLD_SIZE = 10000;
         const HEX_SIZE = 50;
-        let PLAYER_SIZE = 20;
-        let zoom = 1;
+        let PLAYER_SIZE = 4;
+        let zoom = 10;
         let score = Math.PI * PLAYER_SIZE * PLAYER_SIZE;
         let playerX = WORLD_SIZE / 2;
         let playerY = WORLD_SIZE / 2;
         let otherBubbles = [];
         let startTime = Date.now();
+        let person = 'Player';
 
 
 
@@ -142,8 +147,8 @@
             ctx.font = '12px Arial';
             ctx.textAlign = 'center';
             ctx.fillStyle = '#fff';
-            ctx.fillText('You', (playerX - topLeftX) * zoom, (playerY - topLeftY) * zoom);
-            ctx.fillText('Size: ' + PLAYER_SIZE.toFixed(0), (playerX - topLeftX) * zoom, (playerY - topLeftY) * zoom + 15);
+            ctx.fillText(`${person}`, (playerX - topLeftX) * zoom, (playerY - topLeftY) * zoom);
+            ctx.fillText(playerArea.toFixed(0), (playerX - topLeftX) * zoom, (playerY - topLeftY) * zoom + 15);
         }
 
         let playerArea = Math.PI * PLAYER_SIZE * PLAYER_SIZE;
@@ -184,7 +189,7 @@
             ctx.fillText('Game Over', canvas.width / 2, canvas.height / 2);
             ctx.font = '24px Arial';
             ctx.fillText('Press F5 to restart', canvas.width / 2, canvas.height / 2 + 30);
-            ctx.fillText('Score: ' + score.toFixed(2), canvas.width / 2, canvas.height / 2 + 60);
+            ctx.fillText('Score: ' + score.toFixed(0), canvas.width / 2, canvas.height / 2 + 60);
             ctx.fillText('Game Duration: ' + (Date.now() - startTime) / 1000 + 's', canvas.width / 2, canvas.height / 2 + 90);
         }
 
@@ -198,7 +203,7 @@
             ctx.fillText('You Win!', canvas.width / 2, canvas.height / 2);
             ctx.font = '24px Arial';
             ctx.fillText('Press F5 to restart', canvas.width / 2, canvas.height / 2 + 30);
-            ctx.fillText('Score: ' + score.toFixed(2), canvas.width / 2, canvas.height / 2 + 60);
+            ctx.fillText('Score: ' + score.toFixed(0), canvas.width / 2, canvas.height / 2 + 60);
             ctx.fillText('Game Duration: ' + (Date.now() - startTime) / 1000 + 's', canvas.width / 2, canvas.height / 2 + 90);
         }
 
@@ -224,13 +229,17 @@
 
         }
         function handleWheel(e) {
-            zoom = Math.min(Math.max(0.1, zoom - e.deltaY * 0.001), 5);
+            zoom = Math.min(Math.max(0.1, zoom - e.deltaY * 0.001), 10);
             zoomLevelElement.textContent = `Zoom: ${zoom.toFixed(2)}x`;
         }
 
         function handleScore() {
             score = Math.PI * PLAYER_SIZE * PLAYER_SIZE;
-            scoreElement.textContent = `Score: ${score.toFixed(2)}`;
+            scoreElement.textContent = `Score: ${score.toFixed(0)}`;
+        }
+
+        function handleName() {
+            person = personElement.value;
         }
 
         function handleGameDuration() {
