@@ -41,7 +41,7 @@ Bubbleman IO is a simple browser-based game where you control a bubble and try t
 
 ## License
 
-This project is licensed under the Creative Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication. See the [LICENSE](LICENSE) file for details.
+BubbleMan IO © 2025 by Hugo Nicolau is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International 
 
 ## Acknowledgements
 
