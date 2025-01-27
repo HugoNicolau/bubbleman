@@ -8,7 +8,7 @@ const okButton = document.querySelector("button");
 const startScreen = document.getElementById("startScreen");
 
 const WORLD_SIZE = 10000;
-const HEX_SIZE = 50;
+const HEX_SIZE = 200;
 let PLAYER_SIZE = 4;
 let zoom = 10;
 let score = Math.PI * PLAYER_SIZE * PLAYER_SIZE;
